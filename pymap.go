@@ -54,32 +54,10 @@ func sumUint64Array(a *[]uint64) (s uint64) {
 	return s
 }
 
-func Each(a *[]int, fn func(*[]int, int, int, int)) time.Duration {
-	// Each takes 
-	// 	 a pointer to an array/slice 'a' of type []int
-	// 	 a func to process each value in the slice/array 'a'
-	// 		func takes 
-	// 			a pointer to 'a'
-	// 			an index 'i' 
-	// 			two ints to be used within func
-	// 				i.e. a[i] = x */-+ y
-	// returns the time.Duration of processing`
-	st := time.Now()
-	for i, v := range *a {
-		fn(a, i, v, v)
-	}
-	return (time.Since(st))
-}
-
-func EachNew(a *[]int, fn func(int, int) int) (e []int) {
-	e = make([]int, len(*a))
-	for i, v := range *a {
-		e[i] = fn(v, v)
-	}
-	return e
-}
-
 func EqualArrays(a1, a2 *[]int) bool {
+	// EqualArrays takes 
+	// 	 two pointer to arrays/slices 'a1', 'a2' of type []int 
+	// returns true if both have equal field content -> bool 
 	if len(*a1) != len(*a2) {
 		return false
 	}
@@ -91,10 +69,49 @@ func EqualArrays(a1, a2 *[]int) bool {
 	return true
 }
 
-func Each2Seq(s1, s2 *[]int, fn func(*[]int, *[]int, int)) time.Duration {
-	st := time.Now()
-	for i, _ := range *s1 {
-		fn(s1, s2, i)
+func Each(a *[]int, fn func(*[]int, int, int, int)) {
+	// Each takes 
+	// 	 a pointer to an array/slice 'a' of type []int
+	//      Attention!  The array/slice 'a' will become modified by holding the results
+	//					If you want to preserve the array, use func EachNew instead 
+	// 	 a func to process each value in the slice/array 'a'
+	// 		func takes 
+	// 			a pointer to 'a'
+	// 			an index 'i' 
+	// 			two ints to be used within func
+	// 				i.e. a[i] = x */-+ y
+	for i, v := range *a {
+		fn(a, i, v, v)
 	}
-	return (time.Since(st))
+}
+
+func EachNew(a *[]int, fn func(int, int) int) (e []int) {
+	// EachNew takes 
+	// 	 a pointer to an array/slice 'a' of type []int 
+	//		the results will be hold in 'e' []int
+	//   	'a' will be preserved - if you want the results beeing stored within 'a' use func Each instead 
+	// 	 a func to process each value in the slice/array 'a'
+	// 		func takes 
+	// 			two ints to be used within func
+	// 				i.e. e[i] = v/x */-+ y
+	// returns 'e' []int containing the results
+	e = make([]int, len(*a))
+	for i, v := range *a {
+		e[i] = fn(v, v)
+	}
+	return e
+}
+
+func Each2Seq(a1, a2 *[]int, fn func(*[]int, *[]int, int)) {
+	// Each2Seq takes 
+	// 	 two pointer to arrays/slices 'a1', 'a2' of type []int 
+	//	 Attention!  The array/slice 'a1' will become modified by holding the results
+	//				If you want to preserve the array 'a', use func EachNew2Seq instead 
+	// 	 a func to process each value in the slice/array 'a1' with each corresponding value in 'a2'
+	// 		func takes 
+	//			two pointers to 'a1', 'a2'
+	// 			an index 'i' 
+	for i, _ := range *a1 {
+		fn(a1, a2, i)
+	}
 }
