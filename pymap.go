@@ -1,9 +1,7 @@
 package pymap
 
 import (
-	// "log"
 	"runtime"
-	"time"
 )
 
 func init() {
