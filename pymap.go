@@ -55,16 +55,15 @@ func sumUint64Array(a *[]uint64) (s uint64) {
 }
 
 func Each(a *[]int, fn func(*[]int, int, int, int)) time.Duration {
-	`Each 
-	takes 
-		a pointer to an array/slice 'a' of type []int
-		a func to process each value in the slice/array 'a'
-			func takes 
-				a pointer to 'a'
-				an index 'i' 
-				two ints to be used within func
-					i.e. a[i] = x */-+ y
-	returns the time.Duration of processing`
+	// Each takes 
+	// 	 a pointer to an array/slice 'a' of type []int
+	// 	 a func to process each value in the slice/array 'a'
+	// 		func takes 
+	// 			a pointer to 'a'
+	// 			an index 'i' 
+	// 			two ints to be used within func
+	// 				i.e. a[i] = x */-+ y
+	// returns the time.Duration of processing`
 	st := time.Now()
 	for i, v := range *a {
 		fn(a, i, v, v)
