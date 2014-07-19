@@ -110,9 +110,9 @@ func TestEqualArrays(t *testing.T) {
 func TestEach(t *testing.T) {
 
 	Convey("Given a []int {0...999}", t, func() {
-		a := []int{}
+		a := make([]int, 1000)
 		for i := 0; i < 1000; i++ {
-			a = append(a, i)
+			a[i] = i
 		}
 
 		Convey("Each x*x", func() {
@@ -133,9 +133,9 @@ func TestEach(t *testing.T) {
 func TestEachNew(t *testing.T) {
 
 	Convey("Given a [1000]int {1 .. 1000}, fn(y) = x*x", t, func() {
-		a := []int{}
+		a := make([]int, 1000)
 		for i := 0; i < 1000; i++ {
-			a = append(a, i)
+			a[i] = i
 		}
 
 		Convey("return b = a**2", func() {
@@ -159,9 +159,9 @@ func TestEachNew(t *testing.T) {
 func TestEach2Seq(t *testing.T) {
 
 	Convey("Given a []int {1,2,3}", t, func() {
-		a := []int{}
+		a := make([]int, 1000)
 		for i := 0; i < 1000; i++ {
-			a = append(a, i)
+			a[i] = i
 		}
 		b := make([]int, len(a))
 		copy(b, a)
